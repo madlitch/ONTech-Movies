@@ -1,0 +1,142 @@
+.seat {
+    width: 50px;
+    height: 50px;
+}
+
+.zoom {
+    transition: transform .2s;
+}
+
+.zoom:hover {
+    transform: scale(1.1);
+}
+
+.gallery_movie_image {
+    width: 300px;
+}
+
+.movie_image {
+    width: 400px;
+    padding: 20px;
+}
+
+.panel {
+    width: 100%;
+    height: 80px;
+    background-color: #003c71;
+}
+
+#movie_gallery {
+    padding: 20px;
+    horiz-align: center;
+}
+
+#movie_image_container {
+    display: inline-block;
+    transition: transform .2s;
+    padding: 5px;
+}
+
+#movie_image_container:hover {
+    transform: scale(1.1);
+}
+
+body {
+    background-color: #212121;
+}
+
+h1  {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    color: white;
+    margin-left: 10px;
+    margin-top: 30px;
+    vertical-align: middle;
+}
+
+h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: white;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+h6  {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
+    color: white;
+    margin-left: 10px;
+    margin-top: 10px;
+    vertical-align: middle;
+}
+
+p {
+    margin: 10px;
+    color: white;
+    font-family: "Source Sans Pro", sans-serif;
+}
+
+#book_movie_now {
+    margin: 10px;
+}
+
+#icon {
+    display: inline;
+    width: 50px;
+    margin-top: 3px;
+    vertical-align: middle;
+}
+
+#logo {
+    display: inline-block;
+    width: 200px;
+}
+
+#bottom_panel {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+#bottom_panel_movie {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+#copyright {
+    display: inline-block;
+    text-align: right;
+}
+
+#title {
+    display: inline;
+    /*margin-top: 30px;*/
+}
+
+#top_panel_container {
+    margin-left: 20px;
+    horiz-align: left;
+    display: inline-block;
+}
+
+.nav {
+    position: absolute;
+    display: inline-block;
+    text-align: right;
+    vertical-align: middle;
+    margin-right: 25px;
+    horiz-align: right;
+    right: 0;
+}
+
+#top_panel {
+    width: 100%;
+    height: 80px;
+    background-color: #003c71;
+}
+
+#movie_content {
+    margin: auto;
+    width: 1500px;
+}

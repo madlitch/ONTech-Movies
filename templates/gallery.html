@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;900&family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet.css') }}">
+    <title>ONTech Cinemas</title>
+</head>
+<body>
+    <div id="top_panel" class="panel">
+        <div style="padding: 5px" id="top_panel_container">
+            <a href="https://ontariotechu.ca/"><img src="{{ url_for('static', filename='images/otu-icon.png') }}" id="icon" alt=""></a>
+            <h1 id="title">ONTECH <span style="color: #ff6a39; font-weight: 600">CINEMA</span></h1>
+        </div>
+        <div class="nav" style="vertical-align: middle; margin-top: 25px; display: inline">
+            <a href="/"><h4 style="vertical-align: middle; margin-top: 25px; margin-right: 20px; display: inline">HOME</h4></a>
+            <a href="{{ url_for('past_order') }}"><h4 style=" margin-top: 25px; display: inline">PAST ORDER</h4></a>
+        </div>
+    </div>
+    <div id="movie_gallery">
+        <div style="max-width: 1600px; margin: auto">
+            <h4>CURRENTLY SCREENING:</h4>
+            {% for element in movies %}
+            <div id="movie_image_container">
+                <a href="{{ url_for('movie')}}?q={{ element.name.replace(' ', '-') }}"><img class="gallery_movie_image" src="static/{{ element.photo_url }}" alt=""></a>
+                <h6>{{ element.name }}</h6>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    <footer id="bottom_panel" class="panel">
+        <div style="padding: 5px" id="bottom_panel_container">
+            <a href="https://ontariotechu.ca/"><img src="{{ url_for('static', filename='images/otu.png') }}" id="logo" alt=""></a>
+            <h6 id="copyright">Copyright <span style="color: #ff6a39; font-weight: 600">OnTech Cinema 2020</span></h6>
+            <div style="horiz-align: right; display: inline-block">
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

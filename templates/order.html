@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<!--Everything within the double curly braces ({ { } }) is data passed in from the render_template function in the server, not correctly represented here otherwise it will try to fill this with information and will cause an internal server error-->
+    <title>Book: {{ movie_data.name }}</title>
+<!--We used bootstrap and google fonts for all our input UI elements    -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;900&family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+<!--The url_for function allows us to get the url assigned to the specific function called by that name, and allows us to access a file within that url-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='UIUpdate.js') }}"></script>
+    <script type="text/javascript">
+        // passes in the python seat_list variable into javascript, using the seat class' tostring (__repr__) function
+        let booked_seats = createSeatArray('{{ seat_list }}');
+    </script>
+</head>
+<body>
+    <div id="top_panel" class="panel">
+        <div style="padding: 5px" id="top_panel_container">
+            <a href="https://ontariotechu.ca/"><img src="{{ url_for('static', filename='images/otu-icon.png') }}" id="icon" alt=""></a>
+            <h1 id="title">ONTECH <span style="color: #ff6a39; font-weight: 600">CINEMA</span></h1>
+        </div>
+        <div class="nav">
+            <a href="/"><h4 style="vertical-align: middle; margin-top: 25px">HOME</h4></a>
+        </div>
+    </div>
+    <div>
+        <form action="{{ url_for('process') }}" method="post" style="margin: auto; width: 1500px">
+            <div style="display: inline-block; top: 0; height: 100%; vertical-align: top">
+                <img src="static/{{ movie_data.photo_url }}" style="width: 400px; padding: 20px; vertical-align: top" alt="">
+                <div style="margin: auto; width: 400px">
+                    <h1 style="width: 400px; margin: auto; text-align: center">{{ movie_data.name }}</h1>
+                    <input type="submit" style="width: 350px; margin-left: 25px; margin-top: 20px" class="btn btn-primary btn-lg" id="bookNow" value="Book Now" disabled="disabled">
+                </div>
+            </div>
+            <div style="display: inline-block;">
+                <div id="screeningSelect" >
+                    <h4 style="padding-bottom: 5px; margin-left: 0; margin-top: 20px">Screenings:</h4>
+<!--                Everything in the curly brace percentages ( { % % } ) allows us to embed python control flow into the document, this allows us to dynamically create html tags, in this case we are creating as many screenings as there are in the database    -->
+                    {% for element in screenings %}
+<!--                    For each button we create for UI purposes, we create a radio input assigned to it. this allows us to pass in form information normally, but have buttons with text in them so that it is clearer for the end user, we employ the same technique for the seats, except with check boxes-->
+                        <input type="button" name="screening_buttons" style="width: 520px; margin-bottom: 5px;" class="zoom btn btn-outline-primary" onclick="toggleScreening(this); updateBookedSeats(booked_seats, this)" value="{{ element[0] }}" id="screening_{{ element[1] }}"><br>
+                        <input type="radio" name="screening" id="screening_{{ element[1] }}r" value="{{ element[1] }}" hidden>
+                    {% endfor %}
+                </div>
+                <div id="seatSelector">
+                    <h4 style="margin: 0; padding-top: 10px;">Please select your seats (Limit 5):</h4>
+                    <h6 style="margin: 0; text-align: center">Front Row</h6>
+                    <table id="seatSelect">
+<!--                A double for loop that allows us to dynamically create seats and their respective ids using the for each loops        -->
+                    {% for char in "ABCDEFGHIJ" %}
+                        <tr>
+                            {% for i in range(1, 11) %}
+                                <td class="seat">
+                                    <input type="button" class="seat zoom btn btn-outline-primary" onclick="toggleSeat(this);" value="{{ char }}{{ i }}" id="{{ char }}{{ i }}b">
+                                    <input type="checkbox" name="seats" id="{{ char }}{{ i }}" value="{{ char }}{{ i }}" hidden>
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    </table>
+                </div>
+            <div id="userInfo">
+                <div class="form-col">
+                    <h4 style="margin: 0; padding-top: 5px; padding-bottom: 5px">Enter your Student ID:</h4>
+                    <div class="row" style="padding-left: 15px; width: 535px; padding-bottom: 10px">
+                        <input type="text" class="form-control" placeholder="Student ID" name="student_id" id="student_id" onkeyup="assertFilled()">
+                    </div>
+                    <h4 style="margin: 0; padding-top: 5px; padding-bottom: 5px">Enter your First Name:</h4>
+                    <div class="row" style="padding-left: 15px; width: 535px; padding-bottom: 10px">
+                        <input type="text" class="form-control" placeholder="First name" name="first_name" id="first_name" onkeyup="assertFilled()">
+                    </div>
+                    <h4 style="margin: 0; padding-top: 5px; padding-bottom: 5px">Enter your Last Name:</h4>
+                    <div class="row" style="padding-left: 15px; width: 535px; padding-bottom: 10px">
+                        <input type="text" class="form-control" placeholder="Last name" name="last_name" id="last_name" onkeyup="assertFilled()">
+                    </div>
+                </div>
+            </div>
+            </div>
+        </form>
+    </div>
+    <footer id="bottom_panel" class="panel">
+        <div style="padding: 5px" id="bottom_panel_container">
+            <a href="https://ontariotechu.ca/"><img src="{{ url_for('static', filename='images/otu.png') }}" id="logo" alt=""></a>
+            <h6 id="copyright">Copyright <span style="color: #ff6a39; font-weight: 600">OnTech Cinema 2020</span></h6>
+            <div style="horiz-align: right; display: inline-block">
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
