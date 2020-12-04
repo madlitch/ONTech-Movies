@@ -8,10 +8,11 @@
 """
 TODO | To replicate the project on your machine, you have to initialize the database.
 TODO | Make sure to use the database_instantiation.sql file to do so, in the database 'theatre' and 'public' schema.
-TODO | The user, password, and port are in the Database.initialise on line 27 below.
+TODO | The user, password, and port are in the Database.initialise on line 28 below.
 TODO | Remember that our database is written in POSTGRESQL and the instantiation file WILL NOT WORK with MySQL.
+TODO | All the requirements needed for this project are in requirements.txt.
 """
-# import technologies needed for the project
+# import modules needed for the project
 from flask import Flask, render_template, request
 # import class files with embedded functions to write/read from the database
 from database import Database
